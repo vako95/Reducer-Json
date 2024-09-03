@@ -12,6 +12,8 @@ const Content = () => {
             MoovieShow.FetchMovie().then(response => dispacth(setMovies(response)))
       }, [dispacth]);
 
+   
+
       return (
             <div className="content">
                   {movies.map((prev) => (
@@ -22,7 +24,7 @@ const Content = () => {
                                           <i onClick={() => dispacth(setDislike(prev.id))} className="fi fi-rs-hand"></i>
                                           <i
                                                 className={`fi fi-tr-wishlist-star ${prev.isFavorite ? 'active' : 'active.i'}`}
-                                                onClick={() => setFavorites(prev.id)}
+                                                onClick={() => dispacth(setFavorites(prev.id))}
                                           ></i>
                                     </div>
                                     <img className='content__img' src={prev.backdrop_path} alt={prev.title} />

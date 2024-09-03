@@ -4,6 +4,9 @@ const initialState = {
 
     movies: [],
     favorites: [],
+    myLikes: 0,
+    myDislikes: 0,
+
 }
 
 const ContentSlice = createSlice({
@@ -11,7 +14,7 @@ const ContentSlice = createSlice({
     initialState,
     reducers: {
         setMovies(state, action) {
-            state.movies = action.payload;;
+            state.movies = action.payload;
         },
         setLike(state, action) {
             const movieID = action.payload
@@ -20,15 +23,19 @@ const ContentSlice = createSlice({
             if (movie) {
                 if (movie.isLiked) {
                     movie.likes -= 1;
+                    state.myLikes -= 1
                     movie.isLiked = false;
                 }
                 else {
                     if (movie.isDisliked) {
                         movie.dislikes -= 1;
+                        movie.myLikes -= 1
+                        state.myDislikes -= 1
                         movie.isDisliked = false;
                     }
                     movie.likes += 1;
                     movie.isLiked = true;
+                    state.myLikes += 1;
                 }
             }
         },
@@ -36,16 +43,20 @@ const ContentSlice = createSlice({
             const movieId = action.payload;
             const movie = state.movies.find((m) => m.id === movieId);
             if (movie) {
-                if (movie.isDisliked) {
+                if (movie.isDisliked ) {
                     movie.dislikes -= 1;
+                    movie.myLikes += 1
+                    state.myDislikes -= 1;
                     movie.isDisliked = false;
                 } else {
                     if (movie.isLiked) {
                         movie.likes -= 1;
+                        state.myLikes -= 1;
                         movie.isLiked = false;
                     }
                     movie.dislikes += 1;
                     movie.isDisliked = true;
+                    state.myDislikes += 1;
                 }
             }
         },
@@ -63,7 +74,7 @@ const ContentSlice = createSlice({
         }
 
     },
-   
+
 })
 
 export const { setMovies, setLike, setDislike, setFavorites } = ContentSlice.actions
