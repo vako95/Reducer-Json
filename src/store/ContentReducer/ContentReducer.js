@@ -6,15 +6,16 @@ const initialState = {
     favorites: [],
     myLikes: 0,
     myDislikes: 0,
-
+    
 }
+
 
 const ContentSlice = createSlice({
     name: "content",
     initialState,
     reducers: {
         setMovies(state, action) {
-            state.movies = action.payload;
+            state.movies = [...state.movies,...action.payload];
         },
         setLike(state, action) {
             const movieID = action.payload
